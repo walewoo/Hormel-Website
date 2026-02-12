@@ -1,0 +1,126 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-hormel-green: #A8CF45;
+  --color-hormel-green-dark: #428841;
+  --color-hormel-black: #111113;
+  --color-hormel-white: #FFFFFF;
+  --color-hormel-gray-50: #F9FAFB;
+  --color-hormel-gray-100: #F3F4F6;
+  --color-hormel-gray-200: #E5E7EB;
+  --color-hormel-gray-300: #D1D5DB;
+  --color-hormel-gray-400: #9CA3AF;
+  --color-hormel-gray-500: #6B7280;
+  --color-hormel-gray-600: #4B5563;
+  --color-hormel-gray-700: #374151;
+  --color-hormel-gray-800: #1F2937;
+  --color-hormel-gray-900: #111827;
+
+  --animate-fade-in: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-up: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-marquee: marquee 14s linear infinite;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #111113;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global paragraph base: 16px/24px/400 on desktop, 14px/20px on mobile */
+@layer base {
+  p {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+  }
+
+  @media (min-width: 768px) {
+    p {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+  }
+}
+
+/* Sharp-angled design system — no border-radius anywhere */
+* {
+  border-radius: 0 !important;
+}
+
+/* Font utility: Playfair Display for display headings
+   Uses the CSS variable set by Next.js font loader on <html> */
+.font-display {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif !important;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Section label pill */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(168, 207, 69, 0.3);
+    background: rgba(168, 207, 69, 0.08);
+    color: #428841;
+  }
+
+  .section-label::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: #A8CF45;
+  }
+}
