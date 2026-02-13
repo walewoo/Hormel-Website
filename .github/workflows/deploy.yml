@@ -34,7 +34,7 @@ jobs:
           local-dir: ./out/
           server-dir: /public_html/
           protocol: ftp
-          security: false
+          security: loose
           exclude: |
             **/.git*
             **/.git*/**
