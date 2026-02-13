@@ -32,9 +32,8 @@ jobs:
           echo "set net:timeout 20;" > deploy.lftp
           echo "set net:max-retries 2;" >> deploy.lftp
           echo "set net:reconnect-interval-base 5;" >> deploy.lftp
-          echo "set ftp:ssl-allow yes;" >> deploy.lftp
-          echo "set ftp:ssl-protect-data no;" >> deploy.lftp
-          echo "set ssl:verify-certificate no;" >> deploy.lftp
+          echo "set ftp:ssl-allow no;" >> deploy.lftp
+          echo "set ftp:passive-mode off;" >> deploy.lftp
           echo "open -u \"${{ secrets.FTP_USERNAME }}\",\"${{ secrets.FTP_PASSWORD }}\" ${{ secrets.FTP_SERVER }};" >> deploy.lftp
           echo "mirror -R ./out /public_html --verbose --delete-first --exclude-glob .git* --parallel=10" >> deploy.lftp
           lftp -f deploy.lftp
