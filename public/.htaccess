@@ -5,17 +5,15 @@
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+  # DO NOT rewrite Next.js assets (this ensures /_next/... is served directly)
+  RewriteRule ^_next/ - [L]
+
   # Handle trailing slashes (Next.js output: 'export' with trailingSlash: true)
   # If request doesn't end in slash and is not a file, redirect to slash
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_URI} !index.php
   RewriteCond %{REQUEST_URI} !/$
   RewriteRule ^(.*)$ /$1/ [L,R=301]
-
-  # Serve HTML files without extensions (optional, but good for clean URLs if not using directories)
-  # RewriteCond %{REQUEST_FILENAME} !-d
-  # RewriteCond %{REQUEST_FILENAME}.html -f
-  # RewriteRule ^(.*)$ $1.html [L]
 
   # Custom 404 Page
   ErrorDocument 404 /404.html
