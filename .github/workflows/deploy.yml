@@ -29,4 +29,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y lftp
-          lftp -c "set ftp:ssl-allow no; open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}; mirror -R ./out /public_html --verbose --delete-first --exclude-glob .git* --parallel=10"
+          echo "set ftp:ssl-allow no;" > deploy.lftp
+          echo "open -u \"${{ secrets.FTP_USERNAME }}\",\"${{ secrets.FTP_PASSWORD }}\" ${{ secrets.FTP_SERVER }};" >> deploy.lftp
+          echo "mirror -R ./out /public_html --verbose --delete-first --exclude-glob .git* --parallel=10" >> deploy.lftp
+          lftp -f deploy.lftp
