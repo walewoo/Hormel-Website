@@ -25,14 +25,11 @@ jobs:
       - name: 🏗️ Build Project
         run: npm run build
 
-      - name: 📂 Sync files (Plain FTP via lftp)
+      - name: 📦 Deploy via HTTP
         run: |
-          sudo apt-get update
-          sudo apt-get install -y lftp
-          echo "set net:timeout 30;" > deploy.lftp
-          echo "set net:max-retries 10;" >> deploy.lftp
-          echo "set net:reconnect-interval-base 5;" >> deploy.lftp
-          echo "set sftp:auto-confirm yes;" >> deploy.lftp
-          echo "open -u \"${{ secrets.FTP_USERNAME }}\",\"${{ secrets.FTP_PASSWORD }}\" sftp://${{ secrets.FTP_SERVER }};" >> deploy.lftp
-          echo "mirror -R ./out /public_html --verbose --delete-first --exclude-glob .git* --parallel=5" >> deploy.lftp
-          lftp -f deploy.lftp
+          cd out
+          zip -r ../site.zip .
+          cd ..
+          curl -F "file=@site.zip" "https://hormelng.com/deploy.php?token=${{ secrets.DEPLOY_TOKEN }}"
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
