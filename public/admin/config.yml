@@ -3,13 +3,16 @@
 
 local_backend: true
 
+# Use DecapBridge PKCE auth (required)
 backend:
-  name: github
+  name: git-gateway
   repo: walewoo/Hormel-Website
   branch: main
-  # Self-hosted OAuth Bridge
-  base_url: https://hormelng.com
-  auth_endpoint: oauth/auth.php
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/ccf51c41-8afd-4ab8-8488-69c953847681/pkce
+  auth_token_endpoint: /sites/ccf51c41-8afd-4ab8-8488-69c953847681/token
+  gateway_url: https://gateway.decapbridge.com
 
 # Media settings
 media_folder: "public/images/blog"
